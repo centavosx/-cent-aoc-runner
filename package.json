@@ -1,8 +1,8 @@
 {
   "name": "@cent/aoc-runner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "devDependencies": {
     "@types/node": "^20.10.3",
     "typescript": "5.3.2"
