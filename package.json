@@ -12,8 +12,5 @@
     "start": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "caller-path": "^4.0.0"
-  }
+  "license": "ISC"
 }
