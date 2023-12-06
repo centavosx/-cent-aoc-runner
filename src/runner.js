@@ -31,10 +31,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AocRunner = void 0;
 const fs = __importStar(require("fs"));
 const process_1 = require("./process");
+const caller_path_1 = __importDefault(require("caller-path"));
 class AocRunner {
     static get _controllerDir() {
         return this._entryPoint + "/controller";
@@ -43,7 +47,9 @@ class AocRunner {
         return this._entryPoint + "/input";
     }
     static register() {
-        this._entryPoint = __dirname;
+        const pathArray = ((0, caller_path_1.default)() || "").split("/");
+        pathArray.pop();
+        this._entryPoint = pathArray.join("/");
         const { part, path } = process_1.Commands.execute();
         const parsedToInt = !!part ? parseInt(part) : undefined;
         if (!path) {

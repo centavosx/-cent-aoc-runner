@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { AOC } from "./implementation";
 import { Commands } from "./process";
+import callerPath from "caller-path";
 
 export class AocRunner {
   private static _entryPoint = "";
@@ -14,7 +15,11 @@ export class AocRunner {
   }
 
   public static register() {
-    this._entryPoint = __dirname;
+    const pathArray = (callerPath() || "").split("/");
+
+    pathArray.pop();
+
+    this._entryPoint = pathArray.join("/");
 
     const { part, path } = Commands.execute();
 
