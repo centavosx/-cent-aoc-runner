@@ -13,16 +13,14 @@ export class AocRunner {
     return this._entryPoint + "/input";
   }
 
-  private static get _callerPath() {
+  public static register() {
     const stack = new Error().stack?.split("\n") || [];
-    return stack[2].slice(
+    const callerPath = stack[2].slice(
       stack[2].lastIndexOf("(") + 1,
       stack[2].lastIndexOf(".js") + 3
     );
-  }
-
-  public static register() {
-    const pathArray = this._callerPath.split("/");
+    
+    const pathArray = callerPath.split("/");
 
     pathArray.pop();
 

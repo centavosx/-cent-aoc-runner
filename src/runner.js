@@ -42,13 +42,11 @@ class AocRunner {
     static get _inputPath() {
         return this._entryPoint + "/input";
     }
-    static get _callerPath() {
+    static register() {
         var _a;
         const stack = ((_a = new Error().stack) === null || _a === void 0 ? void 0 : _a.split("\n")) || [];
-        return stack[2].slice(stack[2].lastIndexOf("(") + 1, stack[2].lastIndexOf(".js") + 3);
-    }
-    static register() {
-        const pathArray = this._callerPath.split("/");
+        const callerPath = stack[2].slice(stack[2].lastIndexOf("(") + 1, stack[2].lastIndexOf(".js") + 3);
+        const pathArray = callerPath.split("/");
         pathArray.pop();
         this._entryPoint = pathArray.join("/");
         const { part, path } = process_1.Commands.execute();
