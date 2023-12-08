@@ -15,11 +15,16 @@ export class AocRunner {
 
   public static register() {
     const stack = new Error().stack?.split("\n") || [];
-    const callerPath = stack[2].slice(
-      stack[2].lastIndexOf("(") + 1,
-      stack[2].lastIndexOf(".js") + 3
+    const filePathFromStack = stack[2];
+    const match = filePathFromStack.match(/(.js|.ts):\d+:\d+\)$/);
+
+    if(!match) return;
+
+    const callerPath = filePathFromStack.slice(
+      filePathFromStack.lastIndexOf("(") + 1,
+      filePathFromStack.lastIndexOf(match[0]) + 3
     );
-    
+
     const pathArray = callerPath.split("/");
 
     pathArray.pop();
@@ -62,8 +67,7 @@ export class AocRunner {
 
   protected static _runSingle(part?: number) {
     return (filePath: string) => {
-      const transformedFile = filePath.replace(/.ts$/, "") + ".js";
-      const { aoc, input } = this._getAocAndInput(transformedFile);
+      const { aoc, input } = this._getAocAndInput(filePath);
       this._runAOC(aoc, input, part);
       console.log("\n\n");
     };
