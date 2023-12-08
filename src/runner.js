@@ -35,7 +35,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AocRunner = void 0;
 const fs = __importStar(require("fs"));
 const process_1 = require("./process");
-const caller_1 = require("./lib/caller");
 class AocRunner {
     static get _controllerDir() {
         return this._entryPoint + "/controller";
@@ -43,8 +42,13 @@ class AocRunner {
     static get _inputPath() {
         return this._entryPoint + "/input";
     }
+    static get _callerPath() {
+        var _a;
+        const stack = ((_a = new Error().stack) === null || _a === void 0 ? void 0 : _a.split("\n")) || [];
+        return stack[2].slice(stack[2].lastIndexOf("(") + 1, stack[2].lastIndexOf(".js") + 3);
+    }
     static register() {
-        const pathArray = (0, caller_1.getCallerFilePath)().split("/");
+        const pathArray = this._callerPath.split("/");
         pathArray.pop();
         this._entryPoint = pathArray.join("/");
         const { part, path } = process_1.Commands.execute();
